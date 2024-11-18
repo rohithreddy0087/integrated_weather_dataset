@@ -8,11 +8,6 @@ Timestamp, Latitude, Longitude, AR Label
 import xarray as xr
 import pandas as pd
 
-min_lon = -120
-max_lon = -115
-min_lat = 31.5
-max_lat = 38
-
 def open_netcdf(filename, start_date, end_date):
     ds = xr.open_dataset(filename, chunks={'time': 1460}, engine='netcdf4')
     ds = ds.squeeze()
