@@ -21,39 +21,6 @@ max_lon = -115
 min_lat = 31.5
 max_lat = 38
 
-# logs the file downloading on both console and in a log file
-logger = logging.getLogger('example_logger')
-logger.setLevel(logging.DEBUG)
-
-console_handler = logging.StreamHandler()
-console_handler.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler(f'debug-{yyyy1}-{yyyy2}-{yyyy3}.log')
-file_handler.setLevel(logging.DEBUG)
-
-console_formatter = logging.Formatter('%(asctime)s - %(message)s')
-file_formatter = logging.Formatter('%(asctime)s - %(message)s')
-
-console_handler.setFormatter(console_formatter)
-file_handler.setFormatter(file_formatter)
-
-logger.addHandler(console_handler)
-logger.addHandler(file_handler)
-
-# Following snippet gives unique stations with respective latitude,longitude
-def convert_longitude(longitude):
-    if longitude > 180:
-        return longitude - 360
-    else:
-        return longitude
-station_list_file = '/root/data/rrr/AR/data/stations.txt'
-sites_df = pd.read_csv(station_list_file, delim_whitespace=True)
-sites_df['Site'] = sites_df['Site'].str.upper()
-sites_df['Longitude'] = sites_df['Longitude'].apply(lambda x: convert_longitude(x))
-sites_df = sites_df[(sites_df['Latitude'] >= min_lat) & (sites_df['Latitude'] <= max_lat) &
-                 (sites_df['Longitude'] >= min_lon) & (sites_df['Longitude'] <= max_lon)]
-sites_df = sites_df.reset_index(drop=True)
-sites_df = sites_df[['Site', 'Latitude', 'Longitude']].drop_duplicates()
-sites_list = list(sites_df.itertuples(index=False, name=None))
 
 # downloads the data
 url = 'http://garner.ucsd.edu/pub/measuresESESES_products/Troposphere'
