@@ -1,0 +1,4 @@
+*.nc
+data/raw/Precipitation/subset.txt
+data/raw/Precipitation/tmp.txt
+data/raw/Flash_Flood/ffw.json
