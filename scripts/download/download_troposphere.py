@@ -11,28 +11,24 @@ import gzip
 import io
 import logging
 import sys
+from config.config import get_logger, read_sites
 
-yyyy1 = int(sys.argv[1])
-yyyy2 = int(sys.argv[2])
-yyyy3 = int(sys.argv[3])
+start_year = int(sys.argv[1])
+end_year = int(sys.argv[2])
 
-min_lon = -120
-max_lon = -115
-min_lat = 31.5
-max_lat = 38
-
+logger = get_logger()
+_, sites_list = read_sites()
 
 # downloads the data
 url = 'http://garner.ucsd.edu/pub/measuresESESES_products/Troposphere'
 local_filename = 'tmp.gz'
-output_dir = '/root/data/rrr/AR/troposphere_data'
-for year in [yyyy1, yyyy2, yyyy3]:
-    
+output_dir = '../data/processed/Troposphere'
+
+for year in range(start_year, end_year):
     # number of days in a year
     days = 365
     if year%4 == 0:
         days = 366
-        
     # loop through each day in the year and dowload the troposphere data
     # for each site and save it into a csv file
     for day in [str(i).zfill(3) for i in range(1, days+1)]:

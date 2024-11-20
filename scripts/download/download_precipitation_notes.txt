@@ -1,0 +1,8 @@
+Link: https://disc.gsfc.nasa.gov/datasets/GPM_3IMERGHH_07/summary?keywords=%22IMERG%20final%22
+
+Generate earthdata prerequisites files:
+But store them in the same folder as the folder where you want to save them
+https://disc.gsfc.nasa.gov/information/howto?title=How%20to%20Generate%20Earthdata%20Prerequisite%20Files
+
+Command to download the multiple files:
+wget --load-cookies urs_cookies --save-cookies urs_cookies --keep-session-cookies -i "<url.txt>"
