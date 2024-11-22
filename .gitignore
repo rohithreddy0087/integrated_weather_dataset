@@ -2,3 +2,5 @@
 data/raw/Precipitation/subset.txt
 data/raw/Precipitation/tmp.txt
 data/raw/Flash_Flood/ffw.json
+data/raw/Precipitation/.netrc
+data/raw/Precipitation/.urs_cookies

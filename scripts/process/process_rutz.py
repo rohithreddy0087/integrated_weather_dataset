@@ -1,9 +1,7 @@
 import numpy as np
 
-file_year = 2000
-ar_data = ds['ARs']
-
-csv_file_path = f'/root/data/rrr/AR/rutz_csv/AR_Catalog_{file_year}.csv'  
+file_year = 2005
+csv_file_path = f'../../data/raw/Rutz_AR_Catalog/Rutz_ARCatalog_MERRA2_{file_year}.csv'  
 
 with open(csv_file_path, 'w') as csv_file:
     csv_file.write("Timestamp,Latitude,Longitude,AR value\n")
