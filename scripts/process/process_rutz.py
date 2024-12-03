@@ -1,41 +1,55 @@
+import xarray as xr
+import pandas as pd
 import numpy as np
+from datetime import datetime
 
-file_year = 2005
-csv_file_path = f'../../data/raw/Rutz_AR_Catalog/Rutz_ARCatalog_MERRA2_{file_year}.csv'  
+# Load your dataset (adjust the path accordingly)
+MIN_LON = -120
+MAX_LON = -115
+MIN_LAT = 31.5
+MAX_LAT = 38
 
-with open(csv_file_path, 'w') as csv_file:
-    csv_file.write("Timestamp,Latitude,Longitude,AR value\n")
-    
-    for time_index in range(ar_data.sizes['ntim']):
-        ar_values_subset = ar_data.isel(ntim=time_index).values
-        year = int(ds['cal_year'].values[time_index])
-        month = int(ds['cal_mon'].values[time_index])
-        day = int(ds['cal_day'].values[time_index])
-        hour = int(ds['cal_hour'].values[time_index])
+def process_rutz_catalog(file_year):
+    print(f"Processing Rutz AR Catalog for the year {file_year}...")
+    nc_file_path = f'/gnn/rrr/integrated_weather_dataset/data/raw/Rutz_AR_Catalog/Rutz_ARCatalog_MERRA2_{file_year}.nc'  
+    output_csv = f'/gnn/rrr/integrated_weather_dataset/data/processed/Rutz/{file_year}.csv'
 
-        time_str = f"{year}-{month:02d}-{day:02d} {hour:02d}:00:00"
+    try:
+        print("Opening NetCDF dataset...")
+        ds = xr.open_dataset(nc_file_path)
+        print("Dataset loaded successfully.")
         
-        ar_indices = np.argwhere(ar_values_subset == 1)
+        print("Filtering dataset by latitude and longitude bounds...")
+        ds_filtered = ds.where(
+            (ds["latitude"] >= MIN_LAT) & (ds["latitude"] <= MAX_LAT) &
+            (ds["longitude"] >= MIN_LON) & (ds["longitude"] <= MAX_LON),
+            drop=True
+        )
+        print("Filtering complete.")
         
-        for idx in ar_indices:  
-            lat_index, lon_index = idx[0], idx[1]  
-            lat_value = ds['latitude'].values[lat_index]
-            lon_value = ds['longitude'].values[lon_index]      
-            ar_value = int(ar_values_subset[lat_index, lon_index])
-            
-            is_lat_in_range = min_latitude <= lat_value <= max_latitude
-            is_lon_in_range = min_longitude <= lon_value <= max_longitude
+        print("Converting filtered dataset to DataFrame...")
+        df = ds_filtered.to_dataframe()
+        print("Conversion complete.")
 
-            if is_lat_in_range and is_lon_in_range:
-                df['Distance'] = df.apply(lambda row: calculate_distance(lat_value, lon_value, row['Latitude'], row['Longitude']), axis=1)
-                closest_station = df.loc[df['Distance'].idxmin()]
-                if closest_station['Distance'] > 50:
-                    continue
-                print(lat_value, lon_value)
-                print(closest_station)
-                dww
-                csv_file.write(f"{time_str},{lat_value},{lon_value},{closest_station["Site"]},{ar_value}\n")
+        print("Creating Timestamp column...")
+        df["Timestamp"] = pd.to_datetime(
+            df[["cal_year", "cal_mon", "cal_day", "cal_hour"]].astype(int).rename(
+                columns={"cal_year": "year", "cal_mon": "month", "cal_day": "day", "cal_hour": "hour"}
+            )
+        )
+        print("Timestamp column created.")
+        
+        print("Resetting index and dropping unnecessary columns...")
+        df = df.reset_index().drop(columns=["nlon", "nlat", "ntim"])
+        
+        print("Selecting required columns...")
+        result_df = df[["Timestamp", "longitude", "latitude", "IVT", "ARs"]]
 
-print(f"CSV file has been created at: {csv_file_path}")
+        print(f"Saving processed data to {output_csv}...")
+        result_df.to_csv(output_csv, mode='w', index=False)
+        print(f"Data for {file_year} saved successfully.")
 
-ds.close()
+    except Exception as e:
+        print(f"An error occurred while processing {file_year}: {e}")
+for year in range(2020, 2025):
+    process_rutz_catalog(year)
