@@ -1,8 +1,12 @@
 #!/bin/bash
 
+<<<<<<< HEAD:scripts/download/download_left_timestamps.sh
 input="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/filtered_urls.txt"
+=======
+input="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/subsubset.txt"
+>>>>>>> 5c9caa0 (first commit):data/raw/Precipitation/download_script.sh
 cookies="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/.urs_cookies"
-output_folder="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/data"
+output_folder="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/temp_data"
 
 while IFS= read -r url; do
     year=$(echo "$url" | grep -oP '\d{4}(?=\/\d{3}\/3B-HHR)')
