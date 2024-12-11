@@ -1,6 +1,7 @@
 import numpy as np
 from datetime import datetime,timedelta
 import matplotlib.pyplot as plt
+import pandas as pd
 
 def yy2yyyy(yy):
     if yy < 30:
@@ -16,7 +17,19 @@ def y2kSec2datetime( y2kSec ) :
     # Convert to datetime obj
     constY2K = datetime(2000, 1, 1, 12) # 2000-01-01 12:00:00
     return constY2K + timedelta(seconds=y2kSec)
-        
+
+def validate_timestamps(dataset, start_date, end_date, log_file="missing.log"):
+    start_dt = datetime.strptime(start_date, "%Y-%m-%d")
+    end_dt = datetime.strptime(end_date, "%Y-%m-%d")
+
+    expected_timestamps = pd.date_range(start=start_dt, end=end_dt + timedelta(days=1), freq="5T")
+    dataset_timestamps = pd.to_datetime(dataset)
+    missing_timestamps = [ts for ts in expected_timestamps if ts not in dataset_timestamps]
+    
+    with open(log_file, "w") as log:
+        for ts in missing_timestamps:
+            log.write(f"{ts} not found in the {dataset}\n")
+
 def sinexToSec(myString):
     '''
     Converts a sinex string (e.g. 15:141:64800) to

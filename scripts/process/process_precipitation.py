@@ -90,7 +90,7 @@ def process_all_files(folder_path, output_path):
 
 # Usage
 logger = get_logger()
-err_logger = get_logger(log_file="err_precipitation.log")
-folder_path = '/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/data/'  # Replace with the actual folder path
-output_path = '/root/data/rrr/integrated_weather_dataset/data/processed/Precipitation/'  # Output file
+err_logger = get_logger(log_file="err_nov2010_precipitation.log")
+folder_path = '/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/temp_data/'  # Replace with the actual folder path
+output_path = '/root/data/rrr/integrated_weather_dataset/data/processed/Precipitation/temp/'  # Output file
 process_all_files(folder_path, output_path)
