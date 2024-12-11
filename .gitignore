@@ -9,3 +9,4 @@ data/raw/Precipitation/.urs_cookies
 *.swp
 __pycache__/
 .ipynb_checkpoints/
+data/raw/Flash_Flood/ffw_cp.json

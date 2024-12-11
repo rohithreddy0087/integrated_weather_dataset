@@ -23,7 +23,7 @@ _, sites_list = read_sites(station_list_file = "/root/data/rrr/integrated_weathe
 # Downloads the data
 url = 'http://garner.ucsd.edu/pub/measuresESESES_products/Troposphere'
 local_filename = 'tmp.gz'
-output_dir = '/root/data/rrr/ES3-TACLS/AR/dataset/troposphere_data/'
+output_dir = '/root/data/rrr/integrated_weather_dataset/data/processed/Troposphere'
 
 print(f"Starting data download from {start_year} to {end_year - 1}...")
 
