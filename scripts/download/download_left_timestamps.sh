@@ -1,10 +1,6 @@
 #!/bin/bash
 
-<<<<<<< HEAD:scripts/download/download_left_timestamps.sh
-input="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/filtered_urls.txt"
-=======
-input="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/subsubset.txt"
->>>>>>> 5c9caa0 (first commit):data/raw/Precipitation/download_script.sh
+input="/root/data/rrr/integrated_weather_dataset/scripts/download/logs_precipitation/left_over_timestamps.txt"
 cookies="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/.urs_cookies"
 output_folder="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/temp_data"
 
