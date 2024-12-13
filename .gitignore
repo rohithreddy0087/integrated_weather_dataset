@@ -10,4 +10,6 @@ data/raw/Precipitation/.urs_cookies
 __pycache__/
 .ipynb_checkpoints/
 data/raw/Flash_Flood/ffw_cp.json
+
 scripts/download/logs_precipitation/subset.txt
+.git-credentials
