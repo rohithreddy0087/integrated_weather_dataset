@@ -1,0 +1,28 @@
+2004.csv: 289 unique sites  
+2005.csv: 346 unique sites  
+2006.csv: 409 unique sites  
+2007.csv: 445 unique sites  
+2008.csv: 467 unique sites  
+2009.csv: 469 unique sites  
+2010.csv: 481 unique sites  
+2011.csv: 460 unique sites  
+2012.csv: 459 unique sites  
+2013.csv: 478 unique sites  
+2014.csv: 490 unique sites  
+2015.csv: 496 unique sites  
+2016.csv: 495 unique sites  
+2017.csv: 495 unique sites  
+2018.csv: 480 unique sites  
+2019.csv: 486 unique sites  
+2020.csv: 475 unique sites  
+2021.csv: 473 unique sites  
+2022.csv: 476 unique sites  
+2023.csv: 464 unique sites  
+2024.csv: 456 unique sites  
+tmp_ex.csv: 491 unique sites  
+
+
+Filtered Stations from station.txt:
+['7odm', 'acsb', 'agmt', 'alam', 'alpp', 'ana1', 'aoa1', 'ar27', 'ar53', 'argu', 'arm1', 'arm2', 'ashm', 'avry', 'azry', 'azu1', 'bald', 'bar1', 'batm', 'bbdm', 'bbry', 'bcwr', 'beat', 'bemt', 'bepk', 'bfld', 'bfsh', 'bgis', 'bill', 'bkap', 'bkms', 'bkr1', 'bkr2', 'blsa', 'bmhl', 'bmry', 'bomg', 'bran', 'brpk', 'bsry', 'btdm', 'bull', 'bust', 'bvpp', 'ca99', 'cact', 'casa', 'case', 'cat1', 'cat2', 'cat3', 'cbhs', 'cccc', 'ccco', 'cccs', 'ccst', 'cdmt', 'cgdm', 'chil', 'chlo', 'chms', 'cic1', 'cice', 'cirx', 'cit1', 'cjmg', 'cjms', 'cjvg', 'clar', 'clbd', 'cmp9', 'cnpp', 'coag', 'cokg', 'copr', 'corx', 'coso', 'cotd', 'cpbn', 'cram', 'crat', 'crcn', 'crfp', 'crgg', 'crhs', 'crrs', 'cru1', 'csci', 'csdh', 'csn1', 'csst', 'ctdm', 'ctms', 'cuhs', 'cvhs', 'dam1', 'dam2', 'dam3', 'ddmn', 'desc', 'dhlg', 'dlno', 'dluz', 'dond', 'dono', 'drew', 'ds13', 'dshs', 'dsme', 'dssc', 'dvle', 'dvls', 'dvlw', 'dvne', 'dvnw', 'dvpb', 'dvse', 'dvsw', 'dyer', 'dyh2', 'dyhs', 'ecco', 'ecfs', 'edpp', 'elly', 'elsc', 'elsg', 'eltn', 'elts', 'errg', 'ese2', 'esre', 'esrw', 'ewpp', 'fhog', 'fmtp', 'fmvt', 'foxg', 'fshb', 'fvpk', 'fxhs', 'fzhs', 'gdec', 'ghrp', 'glrs', 'gmag', 'gmrc', 'gol2', 'gold', 'gvrs', 'har7', 'hbco', 'hcmn', 'helb', 'hell', 'help', 'hivi', 'hmtg', 'hnps', 'hol3', 'holc', 'holp', 'hotk', 'hvys', 'i40a', 'ibex', 'idog', 'idqg', 'iid2', 'imps', 'islk', 'ivco', 'jas1', 'jnhg', 'jnpr', 'john', 'jplm', 'kbrc', 'kdl1', 'knol', 'krac', 'kyvw', 'lapc', 'lasc', 'lbc1', 'lbc2', 'lbch', 'lbrf', 'ldes', 'ldsw', 'lebc', 'leep', 'lema', 'lfrs', 'lgwd', 'lice', 'linc', 'linj', 'litt', 'ljrn', 'lkhg', 'll01', 'llas', 'lmhg', 'lmsg', 'lnco', 'lnmt', 'long', 'lors', 'lpcg', 'lphs', 'lrrg', 'lvms', 'lvwd', 'mat2', 'math', 'merc', 'mhms', 'mins', 'mjpk', 'mlfp', 'monp', 'mpwd', 'mrdm', 'mrry', 'mscg', 'msob', 'mta1', 'mtgg', 'musb', 'musd', 'mvfd', 'mwtp', 'mxs1', 'nbps', 'neva', 'nhrg', 'noco', 'nope', 'nopk', 'nsss', 'oaes', 'oat2', 'ocsd', 'oeoc', 'oghs', 'opbl', 'opcl', 'opcp', 'opcx', 'oprd', 'ormt', 'ovls', 'oxyc', 'ozst', 'p056', 'p066', 'p091', 'p092', 'p093', 'p094', 'p245', 'p308', 'p311', 'p462', 'p463', 'p464', 'p465', 'p466', 'p467', 'p468', 'p469', 'p470', 'p471', 'p472', 'p473', 'p474', 'p475', 'p476', 'p477', 'p478', 'p479', 'p480', 'p481', 'p482', 'p483', 'p484', 'p485', 'p486', 'p487', 'p488', 'p489', 'p490', 'p491', 'p492', 'p493', 'p494', 'p495', 'p496', 'p497', 'p498', 'p499', 'p500', 'p501', 'p502', 'p503', 'p504', 'p505', 'p506', 'p507', 'p508', 'p509', 'p510', 'p511', 'p512', 'p517', 'p519', 'p520', 'p521', 'p522', 'p537', 'p543', 'p544', 'p545', 'p547', 'p548', 'p549', 'p550', 'p551', 'p553', 'p554', 'p555', 'p556', 'p557', 'p558', 'p559', 'p560', 'p561', 'p562', 'p563', 'p564', 'p565', 'p566', 'p567', 'p568', 'p569', 'p570', 'p571', 'p572', 'p573', 'p574', 'p575', 'p577', 'p579', 'p580', 'p581', 'p582', 'p583', 'p584', 'p585', 'p586', 'p587', 'p588', 'p589', 'p590', 'p591', 'p592', 'p593', 'p594', 'p595', 'p596', 'p597', 'p598', 'p599', 'p600', 'p601', 'p603', 'p604', 'p605', 'p606', 'p607', 'p608', 'p609', 'p610', 'p611', 'p612', 'p613', 'p614', 'p615', 'p616', 'p617', 'p618', 'p619', 'p620', 'p621', 'p622', 'p626', 'p627', 'p628', 'p629', 'p630', 'p631', 'p632', 'p633', 'p634', 'p635', 'p636', 'p637', 'p638', 'p639', 'p640', 'p641', 'p642', 'p643', 'p644', 'p645', 'p646', 'p647', 'p648', 'p649', 'p650', 'p651', 'p652', 'p653', 'p723', 'p724', 'p725', 'p726', 'p727', 'p729', 'p740', 'p741', 'p742', 'p744', 'p795', 'p797', 'p799', 'p800', 'p808', 'p809', 'p810', 'p811', 'p812', 'palx', 'pbpp', 'perl', 'phin', 'phjx', 'phlb', 'pin1', 'pin2', 'pjzx', 'pkrd', 'plo3', 'plo5', 'plo6', 'plpx', 'pltx', 'pmhs', 'pmob', 'pmtn', 'pobg', 'poin', 'potr', 'ppbf', 'psap', 'psdm', 'ptax', 'ptex', 'pve3', 'pvep', 'pvhs', 'pvrs', 'qhtp', 'raap', 'ragg', 'ramt', 'rapt', 'rbru', 'rca2', 'rcsc', 'rdmt', 'rdom', 'rela', 'rep2', 'rep3', 'rep4', 'repo', 'rhcg', 'rhcl', 'rkmg', 'rmvj', 'roch', 'rock', 'roge', 'rstp', 'rsvy', 'rths', 'rump', 'ryan', 'sacy', 'sawc', 'sbcc', 'scia', 'scip', 'scms', 'sdhl', 'sfdm', 'sgdm', 'sghs', 'sgps', 'shos', 'shrc', 'sibe', 'silk', 'simm', 'sio3', 'sio5', 'skul', 'skyb', 'slhg', 'slms', 'smyc', 'snhs', 'sni1', 'snog', 'somt', 'song', 'spk1', 'spms', 'spw2', 'stri', 'tabl', 'tabv', 'taft', 'tate', 'teha', 'thcp', 'thm2', 'thmg', 'thms', 'tilc', 'tiva', 'tmap', 'torp', 'tost', 'trak', 'troy', 'twms', 'uclp', 'ucsb', 'usc1', 'usgc', 'vcst', 'vdcy', 'vimt', 'vine', 'vinz', 'vnco', 'vncx', 'vnps', 'vons', 'vtis', 'vtor', 'vyas', 'wasg', 'watc', 'wchs', 'wgpp', 'whc1', 'whyt', 'widc', 'wkpk', 'wlsn', 'wmap', 'wmdg', 'wnra', 'womt', 'wrhs', 'wwfg', 'wwmt', 'yuhg']
+Number of stations
+582
