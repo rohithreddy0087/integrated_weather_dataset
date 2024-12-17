@@ -50,22 +50,22 @@ def process_guan_data(year):
     merged_df['Longitude'] = ((merged_df['Longitude'] + 180) % 360) - 180
     df_final = merged_df[['Timestamp', 'Latitude', 'Longitude', 'Guan_AR_Label']]
 
-    # df2 = pd.read_csv(label_file, index_col=False)
-    # df2['time'] = pd.to_datetime(df2['time'])
-    # all_combinations_2 = pd.MultiIndex.from_product(
-    #     [all_times, df2['lat'].unique(), df2['lon'].unique()],
-    #     names=['time', 'lat', 'lon']
-    # ).to_frame(index=False)
-    # print(f"Generated all combinations for secondary labels for year {year}: {len(all_combinations_2)} rows")
+    df2 = pd.read_csv(label_file, index_col=False)
+    df2['time'] = pd.to_datetime(df2['time'])
+    all_combinations_2 = pd.MultiIndex.from_product(
+        [all_times, df2['lat'].unique(), df2['lon'].unique()],
+        names=['time', 'lat', 'lon']
+    ).to_frame(index=False)
+    print(f"Generated all combinations for secondary labels for year {year}: {len(all_combinations_2)} rows")
 
-    # all_combinations_2['Guan_AR_Label'] = 0
-    # concat_df = pd.concat([all_combinations_2, df2], ignore_index=True)
-    # result_df = concat_df.drop_duplicates(subset=['time', 'lat', 'lon'], keep='last')
-    # result_df['Guan_AR_Label'] = result_df['Guan_AR_Label'].fillna(0)
+    all_combinations_2['Guan_AR_Label'] = 0
+    concat_df = pd.concat([all_combinations_2, df2], ignore_index=True)
+    result_df = concat_df.drop_duplicates(subset=['time', 'lat', 'lon'], keep='last')
+    result_df['Guan_AR_Label'] = result_df['Guan_AR_Label'].fillna(0)
 
-    # df_final.reset_index(drop=True, inplace=True)
-    # result_df.reset_index(drop=True, inplace=True)
-    # df_final['Guan_AR_Label'] = result_df['Guan_AR_Label']
+    df_final.reset_index(drop=True, inplace=True)
+    result_df.reset_index(drop=True, inplace=True)
+    df_final['Guan_AR_Label'] = result_df['Guan_AR_Label']
     
     df_final.to_csv(output_file, index=False)
     print(f"Processed data for year {year} saved to {output_file}.")
