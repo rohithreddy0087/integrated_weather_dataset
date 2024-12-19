@@ -1,6 +1,6 @@
 #!/bin/bash
 
-input="/root/data/rrr/integrated_weather_dataset/scripts/download/logs_precipitation/left_over_timestamps.txt"
+input="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/subsubset.txt"
 cookies="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/.urs_cookies"
 output_folder="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/temp_data"
 

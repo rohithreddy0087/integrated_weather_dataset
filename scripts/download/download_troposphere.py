@@ -23,7 +23,7 @@ _, sites_list = read_sites(station_list_file = "/root/data/rrr/integrated_weathe
 # Downloads the data
 url = 'http://garner.ucsd.edu/pub/measuresESESES_products/Troposphere'
 local_filename = 'tmp.gz'
-output_dir = '/root/data/rrr/integrated_weather_dataset/data/processed/Troposphere'
+output_dir = '/root/data/rrr/integrated_weather_dataset/data/processed/Troposphere/temp'
 
 print(f"Starting data download from {start_year} to {end_year - 1}...")
 
@@ -60,7 +60,6 @@ for year in range(start_year, end_year):
                     temp = temp[temp["Timestamp"].dt.date == filter_date.date()]
                     df_list.append(temp)
             except Exception as e:
-                # logger.error(f"Error processing site {site} on day {day}, year {year}: {e}")
                 print(f"Error processing site {site} on day {day}, year {year}: {e}")
                 continue
         

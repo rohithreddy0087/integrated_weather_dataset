@@ -9,7 +9,7 @@ def validate_data(folder_path, start_year, end_year, frequency):
             print(f"File {year}.csv not found. Skipping...")
             continue
         try:
-            data = pd.read_csv(file_name, parse_dates=['timestamp'])
+            data = pd.read_csv(file_name, parse_dates=['Timestamp'])
         except Exception as error:
             print(f"Error reading {file_name}: {error}")
             continue
@@ -18,8 +18,8 @@ def validate_data(folder_path, start_year, end_year, frequency):
         try:
             start_time = pd.Timestamp(f"{year}-01-01 00:00:00")
             end_time = pd.Timestamp(f"{year+1}-01-01 00:00:00")
-            expected_timestamps = pd.date_range(start=start_time, end=end_time, freq=frequency, closed="left")
-            actual_timestamps = pd.to_datetime(data['timestamp'])
+            expected_timestamps = pd.date_range(start=start_time, end=end_time, freq=frequency)
+            actual_timestamps = pd.to_datetime(data['Timestamp'])
             missing_timestamps = expected_timestamps.difference(actual_timestamps)
         except KeyError:
             print(f"'timestamp' column missing in {file_name}. Skipping...")

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-input="/gnn/rrr/integrated_weather_dataset/data/raw/Precipitation/subsubset.txt"
-cookies="/gnn/rrr/integrated_weather_dataset/data/raw/Precipitation/.urs_cookies"
-output_folder="/gnn/rrr/integrated_weather_dataset/data/raw/Precipitation/data"
+input="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/subsubset.txt"
+cookies="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/.urs_cookies"
+output_folder="/root/data/rrr/integrated_weather_dataset/data/raw/Precipitation/data"
 
 while IFS= read -r url; do
     # Extract year, month, day, and start time from the URL
