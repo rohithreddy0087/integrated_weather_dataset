@@ -5,8 +5,8 @@ seaborn
 imbalanced-learn
 geopy
 torch_geometric
-seaborn
 h5py
 shapely
 jupyterlab
 notebook
+wandb
