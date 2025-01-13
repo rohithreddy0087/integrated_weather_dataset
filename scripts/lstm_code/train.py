@@ -4,17 +4,24 @@ import wandb
 import math
 import numpy as np
 import dask.dataframe as dd
+
 import torch
 from torch_geometric.loader import DataLoader
 import matplotlib.pyplot as plt
 import seaborn as sns
+
 from torch.distributed import init_process_group, destroy_process_group
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
+
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, roc_curve, confusion_matrix, auc
 from sklearn.model_selection import train_test_split
+
 from dataset import WindowedDataset
 from model import LSTMClassifier
+
+#torchrun --standalone --nproc_per_node=4 train.py
+
 import logging
 import traceback
 def get_logger(name = 'integrate', log_file = 'integrate_debug.log'):
@@ -261,7 +268,7 @@ def test(epoch, mode="val"):
         
 def save_model(iter):
     output = math.ceil(iter/5000)*5000
-    checkpoint_path = os.path.join("/root/data/rrr/ES3-TACLS/AR/windowed_lstm/checkpoints", f"model_lr_{output}.pth")
+    checkpoint_path = os.path.join("/root/data/rrr/integrated_weather_dataset/scripts/lstm_code/checkpoints", f"model_lr_{output}.pth")
     checkpoint = {
         'model': model.state_dict(),
         'optimizer': optimizer.state_dict(),
@@ -271,7 +278,7 @@ def save_model(iter):
  
 if __name__ == '__main__':
     
-    epochs = 2
+    epochs = 20
     batch_size = 64
     if master_process:
         wandb.init(
@@ -290,31 +297,30 @@ if __name__ == '__main__':
     torch.set_float32_matmul_precision('high')
     
     logger = get_logger()
+    
     train_dataloader = WindowedDataset( process_rank=ddp_rank, num_process=ddp_world_size, batch_size=batch_size, split = "train") 
     val_dataloader = WindowedDataset(process_rank=ddp_rank, num_process=ddp_world_size, batch_size=batch_size, split = "val") 
+    
+
     logger.info(f'Number of train batches: {len(train_dataloader)//batch_size}')
     logger.info(f'Number of val batches: {len(val_dataloader)//batch_size}')
     
     model = LSTMClassifier()
     model = model.to(device)
-    log_training_config(logger, config)
-    log_gpu_info(logger)
-    log_model_summary(logger, model)
+    # model = torch.compile(model)
+
     if ddp:
         model = DDP(model, device_ids=[ddp_local_rank])
     
     raw_model = model.module if ddp else model
     
+    # model = torch.load('/root/data/rrr/AR/windowed_gcn/checkpoints/model_00000.pth')
     optimizer = torch.optim.Adam(raw_model.parameters(), lr=max_lr)
     criterion = torch.nn.BCELoss()
-    try:
-        for epoch in range(epochs):
-            logger.info(f"Starting epoch {epoch+1}/{epochs}")
-            train(epoch)
-            test(epoch)
-            logger.info(f"Completed epoch {epoch+1}/{epochs}")
-    except Exception as e:
-        log_error_with_trace(logger, e)
- 
+
+    for epoch in range(epochs):
+        train(epoch)
+        test(epoch)
+        
     if ddp:
         destroy_process_group()

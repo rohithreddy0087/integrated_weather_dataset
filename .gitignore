@@ -16,3 +16,4 @@ scripts/download/logs_precipitation/subset.txt
 scripts/lstm_code/wandb/
 scripts/integration/*.log
 *.zip
+*.pth

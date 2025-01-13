@@ -13,14 +13,16 @@ splits = {
     "test": [2016, 2017]
 }
 
+
 class WindowedDataset():
     def __init__(self, process_rank, num_process, batch_size,
-                       data_dir = "/root/data/rrr/integrated_weather_dataset/data/integrated",
+                       data_dir = "/root/data/rrr/ES3-TACLS/AR/dataset/parquet",
                        split = "train"):
         self.process_rank = process_rank
         self.num_process = num_process
         self.batch_size = batch_size
         self.data_dir = data_dir
+        self.label_dir = label_dir
         self.years = splits[split]
        
         self.total_dataset_len = self.len_dataset()
@@ -29,48 +31,53 @@ class WindowedDataset():
         self.load_year_data()
         
     def len_dataset(self):
-        dataset_files = [f"{self.data_dir}/{yyyy}.csv" for yyyy in self.years]
-        data_df = dd.read_csv(dataset_files, blocksize='32MB')  
-        return len(data_df)
+        dataset_files = [f"{self.label_dir}/{yyyy}.parquet" for yyyy in self.years]
+        label_df = dd.read_parquet(dataset_files, blocksize='32MB')  
+        return len(label_df)-len(self.years)
 
     def __len__(self):
         return self.total_dataset_len
-        
+    
     def read_data(self, yyyy):
         t0 = time.time()
-        csv_file = f"{self.data_dir}/{yyyy}.csv",        
-        df = dd.read_csv(csv_file, blocksize='32MB')  
-        df['Label'] = (df['Rutz_Label_approx'].astype(int) | df['Guan_Label_approx'].astype(int))
-        df = df.drop(columns=["Rutz_Label_approx", "Guan_Label_approx"])
+        parquet_file = f"{self.data_dir}/{yyyy}.parquet",
+        dataset_file = f"{self.label_dir}/{yyyy}.parquet"
+        
+        df = dd.read_parquet(parquet_file, blocksize='32MB')  
+        df['Label'] = (df['Guan_AR_Label'].astype(int) | df['Rutz_AR_Label'].astype(int))
+        df = df.drop(columns=["Guan_AR_Label", "Rutz_AR_Label"])
         df = df.sort_values(by=['Site', 'Timestamp'])
         df = df.reset_index().reset_index()
         df = df.drop(columns=["index"])
         df = df.rename(columns={'level_0': 'index'})
         df = df.compute()
+        
+        label_df = dd.read_parquet(dataset_file).compute()
         print(f"Data loading completed for the year {yyyy}, time taken is {time.time() - t0}")
-        return df
+        return df, label_df
     
     def load_year_data(self):
         if self.curr_year_idx == len(self.years) - 1:
             self.curr_year_idx = -1
         self.curr_year_idx += 1
-        self.data_df = self.read_data(self.years[self.curr_year_idx])
-        self.curr_dataset_len = len(self.data_df)
+        self.data_df, self.label_df = self.read_data(self.years[self.curr_year_idx])
+        self.curr_dataset_len = len(self.label_df)
         self.curr_pos = self.process_rank*self.batch_size
     
     def getitem(self):
+        # print(self.process_rank, self.curr_pos, self.curr_dataset_len)
         zwd_values = []
         labels = []
         for i in range(self.batch_size):
-            start_idx = self.data_df.loc[self.curr_pos+i]["StartIndex"]
-            end_idx = self.data_df.loc[self.curr_pos+i]["EndIndex"]
+            start_idx = self.label_df.loc[self.curr_pos+i]["StartIndex"]
+            end_idx = self.label_df.loc[self.curr_pos+i]["EndIndex"]
             
             filtered_ddf = self.data_df.loc[start_idx:end_idx]
             if len(filtered_ddf) < window_size:
                 return None, None
             
             zwd_values.append(filtered_ddf['ZWD'].values)
-            labels.append(self.data_df.loc[self.curr_pos+i]["Label"])
+            labels.append(self.label_df.loc[self.curr_pos+i]["Label"])
         
         self.curr_pos += self.batch_size*self.num_process
         
@@ -110,12 +117,11 @@ if __name__ == '__main__':
         print("=======================")
 
 # class WindowedDataset(Dataset):
-#     def __init__(self, data_df, label_df):
+#     def __init__(self, data_df):
 #         self.data_df = data_df
-#         self.label_df = label_df
 
 #     def __len__(self):
-#         return len(self.label_df)
+#         return len(self.data_df)
     
 #     def __getitem__(self, idx):
         
