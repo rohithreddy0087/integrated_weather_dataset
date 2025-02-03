@@ -23,7 +23,7 @@ logger.setLevel(logging.DEBUG)
 
 console_handler = logging.StreamHandler()
 console_handler.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler(f'batch_inf-2017.log')
+file_handler = logging.FileHandler(f'batch_inf-2017-fullyear.log')
 file_handler.setLevel(logging.DEBUG)
 
 console_formatter = logging.Formatter('%(asctime)s - %(message)s')
@@ -35,6 +35,7 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 
+#data_dir = "/root/data/rrr/integrated_weather_dataset/data/integrated/parquet_fixed"
 data_dir = "/root/data/rrr/ES3-TACLS/AR/dataset/parquet"
                        
 def read_data(yyyy):
@@ -45,7 +46,7 @@ def read_data(yyyy):
     df['Label'] = (df['Guan_AR_Label'].astype(int) | df['Rutz_AR_Label'].astype(int))
     df = df.drop(columns=["Guan_AR_Label", "Rutz_AR_Label"])
     df = df.sort_values(by=['Site', 'Timestamp'])
-    df = df.reset_index().reset_index()
+    df = df.reset_index()
     df = df.drop(columns=["index"])
     df = df.rename(columns={'level_0': 'index'})
     df['Timestamp'] = df['Timestamp'].round('5T')
@@ -105,7 +106,7 @@ if __name__ == '__main__':
     total_windows = sum(count_windows_in_group(group, window_size=2048) for _, group in filtered_df.groupby('Site'))
     
     batch_size = 2048
-    total_batches = (total_windows + batch_size - 1) // batch_size  # Ceil division
+    total_batches = (total_windows + batch_size - 1) // batch_size
     logger.debug(f"Total number of batches: {total_batches}")
 
     model = LSTMClassifier()
@@ -115,7 +116,7 @@ if __name__ == '__main__':
     model.load_state_dict(torch.load(checkpoint_path)['model'])
     logger.debug(f"Loaded model weights")
     
-    csvfile = open('inf_results_1024.csv', 'w', newline='') 
+    csvfile = open('inf_results_2017_2.csv', 'w', newline='') 
     writer = csv.writer(csvfile)
     writer.writerow(['Timestamp', 'Site', 'Latitude', 'Longitude', 'ZWD', 'Label', 'Prediction'])
  

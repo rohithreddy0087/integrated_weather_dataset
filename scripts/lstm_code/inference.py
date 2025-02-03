@@ -10,7 +10,7 @@ import torch
 from torch_geometric.loader import DataLoader
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import pandas as pd
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support, roc_curve, confusion_matrix, auc
 from sklearn.model_selection import train_test_split
 
@@ -75,7 +75,7 @@ def read_data(yyyy):
     parquet_file = f"{data_dir}/{yyyy}.parquet",
     
     df = dd.read_parquet(parquet_file, blocksize='32MB')  
-    df['Timestamp'] = 
+    df['Timestamp'] = pd.to_datetime(df['Timestamp'])
     df['Label'] = (df['Rutz_Label_approx'].astype(int) | df['Guan_Label_approx'].astype(int))
     df = df.drop(columns=["Rutz_Label_approx", "Guan_Label_approx"])
     df = df.sort_values(by=['Site', 'Timestamp'])

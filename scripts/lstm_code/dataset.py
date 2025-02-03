@@ -16,7 +16,8 @@ splits = {
 
 class WindowedDataset():
     def __init__(self, process_rank, num_process, batch_size,
-                       data_dir = "/root/data/rrr/ES3-TACLS/AR/dataset/parquet",
+                       data_dir = "/root/data/rrr/integrated_weather_dataset/data/integrated/parquet_fixed",
+                       label_dir = '/root/data/rrr/integrated_weather_dataset/data/integrated/label',
                        split = "train"):
         self.process_rank = process_rank
         self.num_process = num_process
@@ -44,8 +45,8 @@ class WindowedDataset():
         dataset_file = f"{self.label_dir}/{yyyy}.parquet"
         
         df = dd.read_parquet(parquet_file, blocksize='32MB')  
-        df['Label'] = (df['Guan_AR_Label'].astype(int) | df['Rutz_AR_Label'].astype(int))
-        df = df.drop(columns=["Guan_AR_Label", "Rutz_AR_Label"])
+        df['Label'] = (df['Guan_Label_approx'].astype(int) | df['Rutz_Label_approx'].astype(int))
+        df = df.drop(columns=["Rutz_Label_approx", "Guan_Label_approx"])
         df = df.sort_values(by=['Site', 'Timestamp'])
         df = df.reset_index().reset_index()
         df = df.drop(columns=["index"])

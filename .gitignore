@@ -17,3 +17,5 @@ scripts/lstm_code/wandb/
 scripts/integration/*.log
 *.zip
 *.pth
+*.log
+*.png
